@@ -1,5 +1,5 @@
 import React from "react";
-import { ClerkProvider } from "@clerk/nextjs";
+import ClerkProviderClient from "@/components/ClerkProviderClient";
 import { Montserrat } from "next/font/google";
 import { Metadata } from "next";
 import "./globals.css";
@@ -20,13 +20,13 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "pk_test_YWN0aXZlLW1vb3NlLTY3LmNsZXJrLmFjY291bnRzLmRldiQ"}>
+    <ClerkProviderClient>
       <html lang="en">
         <body className={`${montserrat.variable} antialiased`}>
           {children}
         </body>
       </html>
-    </ClerkProvider>
+    </ClerkProviderClient>
   );
 };
 
