@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { ClerkLoaded, SignedIn, UserButton } from "@clerk/nextjs";
+import { ClerkLoaded, UserButton } from "@clerk/nextjs";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import Container from "./Container";
 import { getAllCategories, getMyOrders } from "@/sanity/helpers";
@@ -31,18 +31,16 @@ const Header = async () => {
         <div className="w-auto md:w-1/3 flex items-center justify-end gap-5">
           <SearchBar />
           <CartIcon />
-          <SignedIn>
+          {userId && (
             <Link href={"/orders"} className="group relative">
               <ListOrdered className="group-hover:text-darkColor hoverEffect" />
               <span className="absolute -top-1 -right-1 bg-darkColor text-white h-3.5 w-3.5 rounded-full text-xs font-semibold flex items-center justify-center">
                 {orders?.length ? orders?.length : 0}
               </span>
             </Link>
-          </SignedIn>
+          )}
           <ClerkLoaded>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+            {userId && <UserButton />}
             {!user && (
               <Link
                 href="/signin"

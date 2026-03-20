@@ -23,6 +23,7 @@ const Hero: React.FC<HeroProps> = ({
                         src={imageOneSrc}
                         alt="Noora Modesty Collection Left"
                         fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover object-center"
                         priority
                     />
@@ -36,6 +37,7 @@ const Hero: React.FC<HeroProps> = ({
                         src={imageTwoSrc}
                         alt="Noora Modesty Collection Right"
                         fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover object-center"
                         priority
                     />
@@ -44,11 +46,12 @@ const Hero: React.FC<HeroProps> = ({
 
             {/* Center Absolute Logo - Sized to match design (Maximum impact) */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none mix-blend-multiply md:mix-blend-normal flex flex-col items-center w-full max-w-sm md:max-w-none">
-                <div className="relative w-[15rem] h-[19rem] md:w-[32rem] md:h-[42rem]">
+                <div className="relative w-48 h-64 md:w-72 md:h-96">
                     <Image
                         src={centerLogoSrc}
                         alt="Noora Modesty Center Monogram"
                         fill
+                        sizes="(max-width: 768px) 12rem, 18rem"
                         className="object-contain"
                         priority
                     />
