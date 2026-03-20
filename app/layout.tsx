@@ -19,14 +19,20 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  return (
-    <ClerkProviderClient>
-      <html lang="en">
-        <body className={`${montserrat.variable} antialiased`}>
-          {children}
-        </body>
-      </html>
-    </ClerkProviderClient>
+  const hasClerkKey = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  const content = (
+    <html lang="en">
+      <body className={`${montserrat.variable} antialiased`}>
+        {children}
+      </body>
+    </html>
+  );
+
+  return hasClerkKey ? (
+    <ClerkProviderClient>{content}</ClerkProviderClient>
+  ) : (
+    content
   );
 };
 

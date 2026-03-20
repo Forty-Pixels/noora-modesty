@@ -12,8 +12,9 @@ import MobileMenu from "./new/MobileMenu";
 import SearchBar from "./new/SearchBar";
 
 const Header = async () => {
-  const user = await currentUser();
-  const { userId } = await auth();
+  const hasClerkKey = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+  const user = hasClerkKey ? await currentUser() : null;
+  const { userId } = hasClerkKey ? await auth() : { userId: null };
   let orders = null;
   if (userId) {
     orders = await getMyOrders(userId);

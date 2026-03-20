@@ -15,9 +15,25 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const SignInPage = async () => {
-  const user = await currentUser();
+  const hasClerkKey = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+  const user = hasClerkKey ? await currentUser() : null;
   if (user) {
     redirect("/");
+  }
+
+  if (!hasClerkKey) {
+    return (
+      <div className="flex min-h-[70vh] items-center justify-center bg-lightBg px-4 py-12 sm:px-6 lg:px-8">
+        <Card className="w-full max-w-md bg-white">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold text-center">Authentication Disabled</CardTitle>
+            <CardDescription className="text-center italic text-red-500">
+              Sign-in is currently unavailable as the authentication provider is not configured.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
   }
 
   return (
