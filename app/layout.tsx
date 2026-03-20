@@ -20,7 +20,7 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "pk_test_YWN0aXZlLW1vb3NlLTY3LmNsZXJrLmFjY291bnRzLmRldiQ"}>
       <html lang="en">
         <body className={`${montserrat.variable} antialiased`}>
           {children}
@@ -31,4 +31,3 @@ const RootLayout = ({
 };
 
 export default RootLayout;
-
