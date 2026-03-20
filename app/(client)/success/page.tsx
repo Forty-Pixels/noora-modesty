@@ -9,14 +9,14 @@ import Link from "next/link";
 import { MY_ORDERS_QUERYResult } from "@/sanity.types";
 import { client } from "@/sanity/lib/client";
 import { defineQuery } from "next-sanity";
-import { useUser } from "@clerk/nextjs";
+import { useSafeUser } from "@/hooks/useSafeClerk";
 
 const SuccessPage = () => {
   const [orders, setOrders] = useState<MY_ORDERS_QUERYResult>([]);
   const searchParams = useSearchParams();
   const orderNumber = searchParams.get("orderNumber");
   const clearCart = useCartStore((state) => state.resetCart);
-  const { user } = useUser();
+  const { user } = useSafeUser();
   const userId = user?.id;
 
   const query =

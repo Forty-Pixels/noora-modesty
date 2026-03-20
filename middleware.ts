@@ -9,19 +9,23 @@ const isProtectedRoute = createRouteMatcher([
   "/wishlist(.*)",
 ]);
 
-export default clerkMiddleware(async (auth, req) => {
-  const authObject = await auth();
+const hasClerkKey = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
-  if (isProtectedRoute(req) && !authObject.userId) {
-    const signInUrl = new URL(
-      `/signin?redirect_url=${req.nextUrl.pathname}`,
-      req.url
-    );
-    return NextResponse.redirect(signInUrl);
-  }
+export default hasClerkKey
+  ? clerkMiddleware(async (auth, req) => {
+    const authObject = await auth();
 
-  return NextResponse.next();
-});
+    if (isProtectedRoute(req) && !authObject.userId) {
+      const signInUrl = new URL(
+        `/signin?redirect_url=${req.nextUrl.pathname}`,
+        req.url
+      );
+      return NextResponse.redirect(signInUrl);
+    }
+
+    return NextResponse.next();
+  })
+  : () => NextResponse.next();
 
 export const config = {
   matcher: [
